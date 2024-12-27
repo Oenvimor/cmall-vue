@@ -1,10 +1,3 @@
-<!--
- * @Descripttion: 
- * @Author: congz
- * @Date: 2020-08-09 12:53:22
- * @LastEditors: congz
- * @LastEditTime: 2020-08-09 21:31:44
--->
 <template>
   <div class="user-pass" id="user-pass" name="user-pass">
     <div class="user-pass-layout">

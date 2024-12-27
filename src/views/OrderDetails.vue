@@ -1,10 +1,3 @@
-<!--
- * @Descripttion: 
- * @Author: congz
- * @Date: 2020-07-22 13:14:57
- * @LastEditors: congz
- * @LastEditTime: 2020-08-13 10:34:49
---> 
 <template>
   <div class="order-details" id="order-details" name="order-details">
     <div class="order-details-layout" v-if="order">
@@ -21,7 +14,7 @@
             <div class="order-operate">
               <div class="order-num">订单号：{{order.order_num}}</div>
               <div class="order-button" v-if="order.type==1">
-                <el-button class="cancel" type="info" size="small" style="width:120px" plain>取消订单</el-button>
+                <el-button class="cancel" type="info" size="small" style="width:120px" plain @click="deleteOrder">取消订单</el-button>
                 <router-link :to="{ path: '/payment', query: {orderNum:order.order_num}}">
                   <el-button class="pay" size="small" style="width:120px">立即付款</el-button>
                 </router-link>
@@ -146,6 +139,7 @@
 <script>
 import CenterMenu from '../components/CenterMenu'
 import * as ordersAPI from '@/api/orders'
+import axios from 'axios'
 export default {
   name: 'OrderDetails',
   data() {
@@ -183,7 +177,39 @@ export default {
         .catch(err => {
           this.notifyError('获取订单失败', err)
         })
-    }
+        
+    },
+    deleteOrder() {
+    this.$confirm('确定要取消订单吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+      .then(() => {
+        ordersAPI
+        .deleteOrder(this.orderNum)
+          .then(response => {
+            if (response.status === 200) {
+              this.$message({
+                type: 'success',
+                message: '订单已取消'
+              });
+              this.$router.go(-1);
+            } else {
+              this.$message.error('取消订单失败');
+            }
+          })
+          .catch(error => {
+            this.$message.error('取消订单失败，请稍后重试');
+          });
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
+        });
+      });
+  }
   },
   components: {
     CenterMenu

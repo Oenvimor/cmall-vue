@@ -1,10 +1,3 @@
-/*
- * @Descripttion:入口文件
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-08-13 09:19:22
- */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'

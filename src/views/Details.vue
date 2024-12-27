@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 商品详情
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-10-28 12:05:31
--->
-
 <template>
   <div id="details" v-if="productDetails">
     <!-- 头部 -->
@@ -13,17 +5,6 @@
       <div class="title">
         <p>{{ productDetails.name }}</p>
         <div class="list">
-          <div class="select">
-            <el-button type="text" class="list-select" @click="goInfo">概述</el-button>
-          </div>
-          <span class="cut">|</span>
-          <div class="select">
-            <el-button type="text" class="list-select" @click="goParam">参数</el-button>
-          </div>
-          <span class="cut">|</span>
-          <div class="select">
-            <el-button type="text" class="list-select">用户评价</el-button>
-          </div>
         </div>
       </div>
     </div>
@@ -33,11 +14,6 @@
     <div class="details-main">
       <!-- 左侧商品轮播图 -->
       <div class="details-block">
-        <el-carousel height="560px" v-if="productPictures.length > 1">
-          <el-carousel-item v-for="item in productPictures" :key="item.id">
-            <img style="height: 560px;" v-lazy="item.img_path" />
-          </el-carousel-item>
-        </el-carousel>
         <div v-if="productPictures.length == 1">
           <img style="height: 560px;" :src="productPictures[0].img_path" />
         </div>
@@ -100,30 +76,11 @@
       </div>
       <!-- 右侧内容区END -->
     </div>
-    <!-- 主要内容END -->
-    <div class="product-select" id="product-select">
-      <el-button
-        type="text"
-        :class="select == 0 ? 'isSelect' : 'notSelect'"
-        @click="showInfoImgs"
-      >商品概述</el-button>
-      <span class="cut">|</span>
-      <el-button
-        type="text"
-        :class="select == 1 ? 'isSelect' : 'notSelect'"
-        @click="showParamImgs"
-      >商品参数</el-button>
-    </div>
-    <div class="product-img" v-for="item in imgs" :key="item.id">
-      <img v-lazy="item.img_path" />
-    </div>
   </div>
-  <div class="not-found" v-else>查询不到该商品</div>
 </template>
 <script>
 import { mapActions } from 'vuex'
 import * as productsAPI from '@/api/products/'
-import * as imgsAPI from '@/api/img/'
 import * as favoritesAPI from '@/api/favorites/'
 import * as cartsAPI from '@/api/carts/'
 export default {
@@ -134,8 +91,8 @@ export default {
       productDetails: '', // 商品详细信息
       productPictures: '', // 商品图片
       imgs: '', //商品概述图片
-      infoImgs: '',
-      paramImgs: '',
+      // infoImgs: '',
+      // paramImgs: '',
       select: 0
     }
   },
@@ -162,29 +119,6 @@ export default {
       productsAPI.showPictures(this.productID).then(res => {
         this.productPictures = res.data
       })
-      imgsAPI.showInfoImgs(this.productID).then(res => {
-        this.infoImgs = res.data
-        this.imgs = this.infoImgs
-      })
-      imgsAPI.showParamImgs(this.productID).then(res => {
-        this.paramImgs = res.data
-      })
-    },
-    goInfo() {
-      this.showInfoImgs()
-      document.getElementById('product-select').scrollIntoView()
-    },
-    goParam() {
-      this.showParamImgs()
-      document.getElementById('product-select').scrollIntoView()
-    },
-    showInfoImgs() {
-      this.select = 0
-      this.imgs = this.infoImgs
-    },
-    showParamImgs() {
-      this.select = 1
-      this.imgs = this.paramImgs
     },
     // 加入购物车
     addShoppingCart() {

@@ -20,7 +20,7 @@
         <router-link :to="{ path: '/goods/details', query: {productID:item.id} }">
           <img :src="item.img_path" alt />
           <h2>{{item.name}}</h2>
-          <h3>{{item.title}}</h3>
+          <h3>{{item.info}}</h3>
           <p>
             <span>{{item.discount_price}}元</span>
             <span v-show="item.price != item.discount_price" class="del">{{item.price}}元</span>

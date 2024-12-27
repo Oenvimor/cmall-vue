@@ -5,9 +5,11 @@
  * @LastEditors: hai-27
  * @LastEditTime: 2020-02-27 00:46:58
  */
-
+.home {
+  background-color: #faf7f3;
+}
 .main-box {
-  background-color: #f2f2f2;
+  background-color: #edf0f5;
   padding-bottom: 20px;
 }
 
@@ -20,6 +22,7 @@
 .block {
   margin: 0 auto;
   max-width: 1225px;
+
 }
 
 .el-carousel__item:nth-child(2n) {

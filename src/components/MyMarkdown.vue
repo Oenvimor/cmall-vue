@@ -7,13 +7,13 @@
 --> 
 
 <template>
+  
   <div id="my-markdown" class="markdown-body">
-    <vue-markdown :source="notice"></vue-markdown>
+    <vue-markdown :source="notice">无</vue-markdown>
   </div>
 </template>
 <script>
 import VueMarkdown from 'vue-markdown'
-import * as noticeAPI from '@/api/notice'
 export default {
   name: 'MyMarkdown',
   components: {
@@ -24,20 +24,7 @@ export default {
       notice: ''
     }
   },
-  created() {
-    noticeAPI
-      .showNotice()
-      .then(res => {
-        if (res.status === 200) {
-          this.notice = res.data.text
-        } else {
-          this.notifyError('获取公告失败', res.msg)
-        }
-      })
-      .catch(err => {
-        this.notifyError('获取公告失败', err)
-      })
-  }
+  
 }
 </script>
 <style>

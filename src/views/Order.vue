@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 我的订单页面组件
- * @Author: congz
- * @Date: 2020-07-03 18:01:05
- * @LastEditors: congz
- * @LastEditTime: 2020-08-19 10:55:03
---> 
-
 <template>
   <div class="order" id="order" name="order">
     <div class="order-layout">
@@ -32,8 +24,8 @@
               <router-link :to="{ path: '/order', query: {type:2} }">
                 <span :class="type==2?'select':'no-select'">已支付</span>
               </router-link>
-              <span class="cut">|</span>
-              <span class="no-select">订单回收站</span>
+              <!-- <span class="cut">|</span>
+              <span class="no-select">订单回收站</span> -->
               <div class="search">
                 <el-input placeholder="输入商品名称、订单号" v-model="search">
                   <el-button slot="append" icon="el-icon-search" @click="searchClick"></el-button>
@@ -196,6 +188,7 @@ export default {
 .order-content {
   background-color: #ffffff;
   margin-bottom: 30px;
+  min-height: 581px;
 }
 .order-title {
   height: 100px;

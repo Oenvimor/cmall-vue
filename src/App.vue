@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 项目根组件
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-09-01 14:34:14
---> 
-
 <template>
   <div id="app" name="app">
     <el-container>
@@ -19,9 +11,8 @@
               </div>
             </li>
             <li v-else class="header-user-con">
-              <!-- 用户头像 -->
               <div class="user-avator">
-                <img :src="this.$store.getters.getUser.avatar" />
+                欢迎
               </div>
               <!-- 用户名下拉菜单 -->
               <div class="user-name">
@@ -31,9 +22,6 @@
                     <i class="el-icon-caret-bottom"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                    <a href="https://github.com/congz666/cmall-go" target="_blank">
-                      <el-dropdown-item>项目仓库</el-dropdown-item>
-                    </a>
                     <router-link to="/center">
                       <el-dropdown-item>个人中心</el-dropdown-item>
                     </router-link>
@@ -72,7 +60,7 @@
           class="el-menu-demo"
           mode="horizontal"
           active-text-color="#ff6700"
-          background-color="#ffffff"
+          background-color="#faf7f3"
           router
         >
           <div class="logo">
@@ -82,10 +70,6 @@
           </div>
           <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="/goods">全部商品</el-menu-item>
-          <el-menu-item index="/about">关于我们</el-menu-item>
-          <a href="https://congz666.gitee.io/" target="_blank">
-            <el-menu-item :index="0">个人博客</el-menu-item>
-          </a>
           <div class="so">
             <el-input placeholder="请输入搜索内容" v-model="search">
               <el-button slot="append" icon="el-icon-search" @click="searchClick"></el-button>
@@ -115,32 +99,6 @@
                 <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
               </p>
             </div>
-          </div>
-          <div class="github">
-            <a href="https://github.com/congz666/cmall-go" target="_blank">
-              <div class="github-but"></div>
-            </a>
-          </div>
-          <div class="mod_help">
-            <p>
-              <router-link to="/">首页</router-link>
-              <span>|</span>
-              <router-link to="/goods">全部商品</router-link>
-              <span>|</span>
-              <router-link to="/about">关于我们</router-link>
-            </p>
-            <p>
-              Copyright ©2020, congz.top 本网站设计内容大部分属小米商城
-              <iframe
-                style="margin-left: 2px; margin-bottom:-5px;"
-                frameborder="0"
-                scrolling="0"
-                width="91px"
-                height="20px"
-                src="https://ghbtns.com/github-btn.html?user=congz666&repo=cmall-go&type=star&count=true"
-              ></iframe>
-            </p>
-            <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备20067893号</a>
           </div>
         </div>
       </el-footer>
@@ -310,7 +268,7 @@ a:hover {
 /* 顶部导航栏CSS */
 .topbar {
   height: 50px;
-  background-color: #303643;
+  background-color: #f39455;
 }
 .topbar .nav {
   width: 1225px;
@@ -322,7 +280,7 @@ a:hover {
 .topbar .nav li {
   float: left;
   height: 50px;
-  color: #b0b0b0;
+  color: #ffffff;
   font-size: 16px;
   text-align: center;
   line-height: 40px;
@@ -337,20 +295,20 @@ a:hover {
 }
 
 .topbar .nav li .el-button {
-  color: #b0b0b0;
+  color: #ffffff;
 }
 .topbar .nav .el-button:hover {
   color: #fff;
 }
 .topbar .nav li a {
-  color: #b0b0b0;
+  color: #ffffff;
 }
 .topbar .nav a:hover {
   color: #fff;
 }
 .topbar .nav .shopCart {
   width: 120px;
-  background: #424242;
+  background: #e78048;
 }
 .topbar .nav .shopCart:hover {
   background: #fff;
@@ -370,8 +328,8 @@ a:hover {
 
 /* 顶栏容器CSS */
 .el-header {
-  margin-bottom: 20px;
-  background-color: #ffffff;
+  /* margin-bottom: 20px; */
+  background-color: #faf7f3;
 }
 .el-header .el-menu {
   max-width: 1225px;
@@ -399,16 +357,16 @@ a:hover {
 .footer {
   width: 100%;
   text-align: center;
-  background: #2f2f2f;
+  background: #f39455;
   padding-bottom: 20px;
 }
 .footer .ng-promise-box {
-  border-bottom: 1px solid #3d3d3d;
+  border-bottom: 1px solid #f39455;
   line-height: 145px;
 }
 .footer .ng-promise-box {
   margin: 0 auto;
-  border-bottom: 1px solid #3d3d3d;
+  border-bottom: 1px solid #f39455;
   line-height: 145px;
 }
 .footer .ng-promise-box .ng-promise p a {

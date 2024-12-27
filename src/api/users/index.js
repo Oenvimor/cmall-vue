@@ -27,7 +27,7 @@ const sendEmail = form =>
 const vaildEmail = val =>
   axios.post('/api/v1/user/vaild-email', { token: val }).then(res => res.data)
 
-//QQ初始化
+// //QQ初始化
 const qqInit = () => axios.get('/api/v1/qq/login').then(res => res.data)
 //QQ登录
 const qqLogin = code =>

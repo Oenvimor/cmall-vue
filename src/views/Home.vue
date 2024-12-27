@@ -1,20 +1,10 @@
-<!--
- * @Descripttion: 首页组件
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-08-12 21:20:08
---> 
-
 <template>
   <div class="home" id="home" name="home">
     <!-- 轮播图 -->
     <div class="block">
-      <el-carousel height="460px">
+      <el-carousel height="460px" style="padding-top: 20px;">
         <el-carousel-item v-for="item in carousels" :key="item.id">
-          <router-link :to="{ path: '/goods/details', query: {productID:item.product_id} }">
-            <img style="height:460px;" v-lazy="item.img_path" />
-          </router-link>
+          <img style="height:460px;" :src="item.img_path" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -28,9 +18,7 @@
           </div>
           <div class="box-bd">
             <div class="promo-list">
-              <router-link :to="{ path: '/goods/details', query: {productID:14} }">
-                <img :src="'http://47.115.85.237:3000/public/imgs/phone/phone.png'" />
-              </router-link>
+              <img :src="'/img/phone.png'" />
             </div>
             <div class="list">
               <MyList :list="phonesList" :isMore="true"></MyList>
@@ -43,34 +31,24 @@
         <div class="appliance" id="promo-menu">
           <div class="box-hd">
             <div class="title">家电</div>
-            <div class="more" id="more">
-              <MyMenu :val="2" @fromChild="getChildMsg">
-                <span slot="1">热门</span>
-                <span slot="2">电视影音</span>
-              </MyMenu>
-            </div>
           </div>
           <div class="box-bd">
             <div class="promo-list">
               <ul>
-                <router-link :to="{ path: '/goods/details', query: {productID:21} }">
-                  <li>
-                    <img
-                      :src="'http://47.115.85.237:3000/public/imgs/appliance/appliance-promo1.png'"
-                    />
-                  </li>
-                </router-link>
-                <router-link :to="{ path: '/goods/details', query: {productID:22} }">
-                  <li>
-                    <img
-                      :src="'http://47.115.85.237:3000/public/imgs/appliance/appliance-promo2.png'"
-                    />
-                  </li>
-                </router-link>
+                <li>
+                  <img
+                    :src="'img/appliances1.png'"
+                  />
+                </li>
+                <li>
+                  <img
+                    :src="'img/appliances2.png'"
+                  />
+                </li>
               </ul>
             </div>
             <div class="list">
-              <MyList :list="applianceList" :isMore="true"></MyList>
+              <MyList :list="televisionsList" :isMore="true"></MyList>
             </div>
           </div>
         </div>
@@ -81,32 +59,27 @@
           <div class="box-hd">
             <div class="title">配件</div>
             <div class="more" id="more">
-              <MyMenu :val="3" @fromChild="getChildMsg2">
-                <span slot="1">热门</span>
-                <span slot="2">保护套</span>
-                <span slot="3">充电器</span>
+              <MyMenu :val="2" @fromChild="getChildMsg2">
+                <span slot="1">保护套</span>
+                <span slot="2">充电器</span>
               </MyMenu>
             </div>
           </div>
           <div class="box-bd">
             <div class="promo-list">
               <ul>
-                <router-link :to="{ path: '/goods/details', query: {productID:30} }">
-                  <li>
-                    <img
-                      :src="'http://47.115.85.237:3000/public/imgs/accessory/accessory-promo1.png'"
-                      alt
-                    />
-                  </li>
-                </router-link>
-                <router-link :to="{ path: '/goods/details', query: {productID:32} }">
-                  <li>
-                    <img
-                      :src="'http://47.115.85.237:3000/public/imgs/accessory/accessory-promo2.png'"
-                      alt
-                    />
-                  </li>
-                </router-link>
+                <li>
+                  <img
+                    :src="'/img/attachment1.png'"
+                    alt
+                  />
+                </li>
+                <li>
+                  <img
+                    :src="'/img/attachment2.png'"
+                    alt
+                  />
+                </li>
               </ul>
             </div>
             <div class="list">
@@ -120,65 +93,40 @@
   </div>
 </template>
 <script>
-import * as carouselsAPI from '@/api/carousels/'
+
 import * as productsAPI from '@/api/products/'
-import * as rankingAPI from '@/api/ranking/'
 
 export default {
   data() {
     return {
-      carousels: '', // 轮播图数据
-      phonesList: '', // 手机商品列表
-      televisionsList: '', // 小米电视商品列表
-      applianceList: '', // 家电商品列表
-      applianceHotList: '', //热门家电商品列表
-      accessoryList: '', //配件商品列表
-      accessoryHotList: '', //热门配件商品列表
-      phoneShellsList: '', // 保护套商品列表
-      chargersList: '', //充电器商品列表
-      applianceActive: 1, // 家电当前选中的商品分类
+      carousels: [
+        { id: 1, img_path: '/img/carousel1.png' },
+        { id: 2, img_path: '/img/carousel2.png' },
+        { id: 3, img_path: '/img/carousel3.png' },
+        { id: 4, img_path: '/img/carousel4.png' },
+      ], // 轮播图数据
+      phonesList: [], // 手机商品列表
+      televisionsList: [], // 小米电视商品列表
+      accessoryList: [], //配件商品列表
+      phoneShellsList: [], // 保护套商品列表
+      chargersList: [], //充电器商品列表
       accessoryActive: 1, // 配件当前选中的商品分类
       start: 0,
       limit: 7
     }
   },
+  mounted() {
+    this.getProduct(5, 'accessoryList');
+  },
   watch: {
-    // 家电当前选中的商品分类，响应不同的商品数据
-    applianceActive: function(val) {
-      // 页面初始化的时候把applianceHotList(热门家电商品列表)直接赋值给applianceList(家电商品列表)
-      // 所以在切换商品列表时判断applianceHotList是否为空,为空则是第一次切换,把applianceList赋值给applianceHotList
-      if (this.applianceHotList == '') {
-        this.applianceHotList = this.applianceList
-      }
+    accessoryActive(val) {
       if (val == 1) {
-        // 1为热门商品
-        this.applianceList = this.applianceHotList
-        return
-      }
-      if (val == 2) {
-        // 2为电视商品
-        this.applianceList = this.televisionsList
-        return
-      }
-    },
-    accessoryActive: function(val) {
-      // 页面初始化的时候把accessoryHotList(热门配件商品列表)直接赋值给accessoryList(配件商品列表)
-      // 所以在切换商品列表时判断accessoryHotList是否为空,为空则是第一次切换,把accessoryList赋值给accessoryHotList
-      if (this.accessoryHotList == '') {
-        this.accessoryHotList = this.accessoryList
-      }
-      if (val == 1) {
-        // 1为热门商品
-        this.accessoryList = this.accessoryHotList
-        return
-      }
-      if (val == 2) {
-        // 2为保护套商品
+        // 1为保护套商品
         this.accessoryList = this.phoneShellsList
         return
       }
-      if (val == 3) {
-        //3 为充电器商品
+      if (val == 2) {
+        // 2为充电器商品
         this.accessoryList = this.chargersList
         return
       }
@@ -190,46 +138,6 @@ export default {
   },
   methods: {
     load() {
-      carouselsAPI
-        .listCarousels()
-        .then(res => {
-          if (res.status == 200) {
-            this.carousels = res.data
-          } else {
-            this.notifyError('获取轮播图失败', res.msg)
-          }
-        })
-        .catch(err => {
-          this.notifyError('获取轮播图失败', err)
-        })
-      //获取热门家电
-      rankingAPI
-        .listElecRanking()
-        .then(res => {
-          if (res.status === 200) {
-            this.applianceHotList = res.data
-            this.applianceList = res.data
-          } else {
-            this.notifyError('获取热门家电失败')
-          }
-        })
-        .catch(err => {
-          this.notifyError('获取热门家电失败', err)
-        })
-      //获取热门配件
-      rankingAPI
-        .listAcceRanking()
-        .then(res => {
-          if (res.status === 200) {
-            this.accessoryHotList = res.data
-            this.accessoryList = res.data
-          } else {
-            this.notifyError('获取热门配件失败')
-          }
-        })
-        .catch(err => {
-          this.notifyError('获取热门配件失败', err)
-        })
       //获取手机列表
       this.getProduct(1, 'phonesList')
       //获取电视列表
@@ -281,4 +189,9 @@ export default {
 </script>
 <style scoped>
 @import '../assets/css/index.css';
+/deep/.el-carousel__item img {
+  width: 100%;       /* 让图片宽度填满父容器 */
+  height: 100%;      /* 让图片高度填满父容器 */
+  object-fit: cover; /* 保持图片比例裁剪多余部分 */
+}
 </style>

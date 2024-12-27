@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 我的收藏页面组件
- * @Author: congz
- * @Date: 2020-07-03 22:55:29
- * @LastEditors: congz
- * @LastEditTime: 2020-08-05 15:41:53
---> 
-
 <template>
   <div class="favorite" id="favorite" name="favorite">
     <div class="favorite-layout">
@@ -103,6 +95,7 @@ export default {
 .favorite-content {
   background-color: #ffffff;
   margin-bottom: 30px;
+  min-height: 581px;
 }
 .favorite-title {
   height: 100px;

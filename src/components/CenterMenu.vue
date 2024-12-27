@@ -26,39 +26,12 @@
               <li>
                 <router-link to="/cart" class="menu-a">我的购物车</router-link>
               </li>
-            </ul>
-            <p class="submenu">账户管理</p>
-            <ul class="menu-ul">
-              <li>
-                <router-link to="/user/details" class="menu-a">个人信息</router-link>
-              </li>
-              <li>
-                <router-link to="/user/pass" class="menu-a">修改密码</router-link>
-              </li>
               <li>
                 <router-link to="/user/address" class="menu-a">收货地址</router-link>
               </li>
             </ul>
-            <p class="submenu">关于</p>
-            <ul class="menu-ul">
-              <li>
-                <router-link to="/about" class="menu-a">关于网站</router-link>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/congz666/cmall-vue"
-                  target="_blank"
-                  class="menu-a"
-                >项目地址(前端)</a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/congz666/cmall-go"
-                  target="_blank"
-                  class="menu-a"
-                >项目地址(后端)</a>
-              </li>
-            </ul>
+      
+        
           </div>
 
           <div class="extra"></div>
@@ -79,6 +52,8 @@ export default {
 <style scoped>
 .menu {
   background-color: #ffffff;
+  min-height: 581px;
+  margin-bottom: 30px;
 }
 .menu-content {
   width: 120px;

@@ -24,4 +24,7 @@ const listOrders = (user_id, type, start, limit) =>
 const showOrder = order_id =>
   axios.get(`/api/v1/orders/${order_id}`).then(res => res.data)
 
-export { postOrder, listOrders, showOrder }
+const deleteOrder = order_id =>
+  axios.delete(`/api/v1/orders/${order_id}`).then(res => res.data)
+
+export { postOrder, listOrders, showOrder, deleteOrder }

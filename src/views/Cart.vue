@@ -1,12 +1,3 @@
-<!--
- * @Descripttion: 我的购物车页面组件
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-08-17 10:55:06
---> 
-
-
 <template>
   <div class="shoppingCart">
     <!-- 购物车头部 -->
@@ -34,9 +25,6 @@
                 </router-link>
                 <router-link to="/center">
                   <el-dropdown-item class="dropdown-menu">个人中心</el-dropdown-item>
-                </router-link>
-                <router-link to="/">
-                  <el-dropdown-item class="dropdown-menu">评价晒单</el-dropdown-item>
                 </router-link>
                 <router-link to="/favorite">
                   <el-dropdown-item class="dropdown-menu">我的收藏</el-dropdown-item>
@@ -244,6 +232,7 @@ export default {
 .shoppingCart {
   background-color: #f5f5f5;
   padding-bottom: 80px;
+  min-height: 661px;
 }
 /* 购物车头部CSS */
 .shoppingCart .top-header {
@@ -374,6 +363,9 @@ export default {
 .shoppingCart .cart-content ul .pro-name {
   float: left;
   width: 380px;
+  white-space: nowrap; /* 禁止换行 */
+  overflow: hidden; /* 隐藏超出内容 */
+  text-overflow: ellipsis; /* 显示省略号 */
 }
 .shoppingCart .cart-content ul .pro-name a {
   color: #424242;
@@ -487,6 +479,7 @@ export default {
   background: url(../assets/imgs/cart-empty.png) no-repeat 124px 0;
   color: #b0b0b0;
   overflow: hidden;
+  min-height: 364px;
 }
 .shoppingCart .cart-empty .empty h2 {
   margin: 70px 0 15px;

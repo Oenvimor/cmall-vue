@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 注册页面组件
- * @Author: congz
- * @Date: 2020-06-11 10:01:19
- * @LastEditors: congz
- * @LastEditTime: 2020-08-18 19:58:16
---> 
-
 <template>
   <div class="register">
     <div>
@@ -28,9 +20,6 @@
               <el-input v-model="form.password_confirm" placeholder="确认密码" type="password"></el-input>
             </el-form-item>
           </el-form>
-          <div id="captcha">
-            <p id="wait">正在加载验证码...</p>
-          </div>
           <div style="margin-top:15px">
             <a href="javascript:;" class="btn-gradient blue block" @click="register('form')">注册</a>
           </div>
@@ -110,14 +99,6 @@ export default {
         if (!valid) {
           return
         }
-        var result = captcha.getValidate()
-        if (!result) {
-          this.notifyError('请验证', null)
-          return
-        }
-        ;(this.form.challenge = result.geetest_challenge),
-          (this.form.validate = result.geetest_validate),
-          (this.form.seccode = result.geetest_seccode),
           userAPI
             .postUser(this.form)
             .then(res => {
@@ -137,30 +118,6 @@ export default {
             })
       })
     },
-    init_geetest() {
-      userAPI.geetest().then(res => {
-        window.initGeetest(
-          {
-            gt: res.gt,
-            challenge: res.challenge,
-            new_captcha: res.new_captcha,
-            offline: !res.success,
-            product: 'popup',
-            width: '100%'
-          },
-          function(captchaObj) {
-            captcha = captchaObj
-            captchaObj.appendTo('#captcha')
-            captchaObj.onReady(function() {
-              document.getElementById('wait').style.display = 'none'
-            })
-          }
-        )
-      })
-    }
-  },
-  mounted() {
-    this.init_geetest()
   },
   components: {}
 }

@@ -1,11 +1,3 @@
-<!--
- * @Descripttion:确认订单页面组件 
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-10-28 12:20:28
---> 
-
 <template>
   <div class="confirmOrder">
     <!-- 头部 -->

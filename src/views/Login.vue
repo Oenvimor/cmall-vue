@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 登录页面组件
- * @Author: congz
- * @Date: 2020-06-11 11:08:34
- * @LastEditors: congz
- * @LastEditTime: 2020-08-19 10:14:30
---> 
-
 <template>
   <div class="login">
     <div>
@@ -25,9 +17,6 @@
               <el-input type="password" v-model="form.password" placeholder="密码"></el-input>
             </el-form-item>
           </el-form>
-          <div id="captcha">
-            <p id="wait">正在加载验证码...</p>
-          </div>
           <div style="margin-top:15px">
             <a href="javascript:;" class="btn-gradient blue block" @click="login('form')">登录</a>
           </div>
@@ -37,25 +26,16 @@
             style="float:right;margin-bottom:10px;"
           >没有账号？请先注册></el-link>
         </div>
-        <div class="line"></div>
-        <div class="logo">
-          <div class="logo-info">其他账号登录:</div>
-          <div class="logo-login">
-            <div @click="qqInit">
-              <img src="../assets/imgs/QQlogo.png" alt />
-            </div>
-          </div>
-        </div>
       </el-card>
     </div>
   </div>
 </template>
-<script src="../assets/gt.js"></script>
+<!-- <script src="../assets/gt.js"></script> -->
 <script>
 import { mapActions } from 'vuex'
 import * as userAPI from '@/api/users'
-require('../assets/gt.js')
-var captcha
+// require('../assets/gt.js')
+// var captcha
 export default {
   name: 'Login',
   data() {
@@ -79,9 +59,6 @@ export default {
       form: {
         user_name: '',
         password: '',
-        challenge: '',
-        validate: '',
-        seccode: ''
       },
       rules: {
         user_name: [{ validator: validateUser, trigger: 'blur' }],
@@ -96,14 +73,6 @@ export default {
         if (!valid) {
           return
         }
-        var result = captcha.getValidate()
-        if (!result) {
-          this.notifyError('请验证', null)
-          return
-        }
-        ;(this.form.challenge = result.geetest_challenge),
-          (this.form.validate = result.geetest_validate),
-          (this.form.seccode = result.geetest_seccode),
           userAPI
             .postLogin(this.form)
             .then(res => {
@@ -137,32 +106,7 @@ export default {
         }
       })
     },
-    init_geetest() {
-      userAPI.geetest().then(res => {
-        window.initGeetest(
-          {
-            gt: res.gt,
-            challenge: res.challenge,
-            new_captcha: res.new_captcha,
-            offline: !res.success,
-            product: 'popup',
-            width: '100%'
-          },
-          function(captchaObj) {
-            captcha = captchaObj
-            captchaObj.appendTo('#captcha')
-            captchaObj.onReady(function() {
-              document.getElementById('wait').style.display = 'none'
-            })
-          }
-        )
-      })
-    }
   },
-  mounted() {
-    this.init_geetest()
-  },
-
   components: {}
 }
 </script>

@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 收货地址页面组件
- * @Author: congz
- * @Date: 2020-07-11 15:12:07
- * @LastEditors: congz
- * @LastEditTime: 2020-08-05 15:40:11
---> 
-
 <template>
   <div class="address" id="address" name="address">
     <div class="address-layout">

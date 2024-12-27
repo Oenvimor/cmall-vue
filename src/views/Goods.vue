@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 全部商品页面组件
- * @Author: congz
- * @Date: 2020-06-04 11:22:40
- * @LastEditors: congz
- * @LastEditTime: 2020-08-12 20:56:01
---> 
-
 <template>
   <div class="goods" id="goods" name="goods">
     <!-- 面包屑 -->
@@ -40,7 +32,6 @@
     <div class="main">
       <div class="list">
         <MyList :list="product" v-if="product.length>0"></MyList>
-        <div v-else class="none-product">抱歉没有找到相关的商品，请看看其他的商品</div>
       </div>
       <!-- 分页 -->
       <div class="pagination">
@@ -60,7 +51,6 @@
 <script>
 import * as productAPI from '@/api/products'
 import * as categoryAPI from '@/api/categories'
-import axios from 'axios'
 
 export default {
   data() {
@@ -124,29 +114,32 @@ export default {
       })
     },
     // 监听搜索条件，响应相应的商品
-    search: function(val) {
-      if (val != '') {
-        this.getProductBySearch(val)
+    search: function(newVal, oldVal) {
+      if (newVal !== '' && newVal !== oldVal) {
+        this.updateRouteWithSearchQuery(newVal);
       }
     },
     // 监听分类id，响应相应的商品
-    categoryID: function() {
-      this.getData()
-      this.search = ''
+    categoryID: function(newVal, oldVal) {
+      this.getData();
+      this.search = '';
     },
     // 监听路由变化，更新路由传递了搜索条件
-    $route: function(val) {
-      if (val.path == '/goods') {
-        if (val.query.search != undefined) {
-          this.activeName = '-1'
-          this.currentPage = 1
-          this.total = 0
-          this.search = val.query.search
-        }
+    '$route': function(newVal, oldVal) {
+      if (newVal.path === '/goods' && newVal.query.search !== oldVal.query.search) {
+        this.activeName = '-1';
+        this.currentPage = 1;
+        this.total = 0;
+        this.search = newVal.query.search;
       }
     }
   },
   methods: {
+     // 更新路由并获取商品数据
+     updateRouteWithSearchQuery(searchQuery) {
+      this.$router.replace({ path: '/goods', query: { search: searchQuery } });
+      this.getProductBySearch(searchQuery);
+    },
     // 返回顶部
     backtop() {
       const timer = setInterval(function() {
